@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Daum 지도 시작하기</title>
+</head>
+<body>
+	<div id="map" style="width:500px;height:400px;"></div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fad6c5fcb014eb0be53048d3f5a5821"></script>
+	<script>
+		var container = document.getElementById('map');
+		var loc = {{location}}
+		
+// 		console.log(loc)
+
+        var positions = new Array()
+        for(var i = 0;i<loc.length;i++){
+            positions.push({title:"", latlng:new daum.maps.LatLng(loc[i][0], loc[i][1])})
+        }
+        
+		var options = {
+			center: new daum.maps.LatLng(loc[0][0], loc[0][1]),
+			level: 3
+		};
+		
+		
+		var map = new daum.maps.Map(container, options);
+		
+        for(var i = 0;i<loc.length;i++){
+            var marker = new daum.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: positions[i].latlng, // 마커를 표시할 위치
+                title : positions[i].title, 
+            });
+        }
+        
+        
+        var linePath = new Array()
+        
+        for(var i = 0;i<loc.length;i++){
+            linePath.push(positions[i].latlng)
+        }
+        
+        // 지도에 표시할 선을 생성합니다
+        var polyline = new daum.maps.Polyline({
+            path: linePath, // 선을 구성하는 좌표배열 입니다
+            strokeWeight: 5, // 선의 두께 입니다
+            strokeColor: '#FFAE00', // 선의 색깔입니다
+            strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            strokeStyle: 'solid' // 선의 스타일입니다
+        });
+        
+        // 지도에 선을 표시합니다 
+        polyline.setMap(map);  
+        
+        
+        
+
+	</script>
+</body>
+</html>
