@@ -2,10 +2,67 @@
 {% block body_block %}
 
     
-<div class = "mapcontainer" id="map" style="width:100%;height:100%;"></div>
+<div class = "left_side_right_main_wraper">
+    <div data-toggle="collapse" href="#leftside" role="button" aria-expanded="false" aria-controls="leftside" style="position:absolute;top:1rem;left:0.2rem;z-index: 3;"><i class="fas fa-chevron-circle-right" style="font-size: 2rem;"></i></div>
+    <nav id="leftside" class="left_side_wraper collapse">
+        <div id="sideonmap" style="position:relative;width:100%;height:100%;z-index:3;background-color: white;float:left;">
+            
+            <ul><!-- open whole list -->
+            <li> Search place
+            <p>
+                <input type="search" id="site-search" name="q"
+                       aria-label="Search through site content" style="width:80%">
+            </p>
+            <p>
+                <button>Search</button>
+            </p>
+            </li>
+            <li> 
+            
+                <p>
+                  <a class="btn btn-primary" data-toggle="collapse" href="#favorite_list" role="button" aria-expanded="false" aria-controls="favorite_list">
+                    Favorite
+                  </a>
+                </p>
+                <div class="collapse" id="favorite_list">
+                  <div>
+                      <p>something01</p>
+                      <p>something02</p>
+                      <p>something03</p>
+                  </div>
+                </div>
+            
+            </li><!-- closing list under section two -->
+            <li>Title of Section Three
+                 <ul>
+                  <li>Carrot</li>
+                  <li>Celery</li>
+                 </ul>
+            </li><!-- closing list under section three -->
+            </ul><!-- closing whole list -->
+            
+        </div>
+        <!--<div data-toggle="collapse" href="#leftside" role="button" aria-expanded="false" aria-controls="leftside"style="float:right"><i class="fas fa-chevron-circle-left" style="font-size: 2rem;"></i></div>-->
+    </nav>
+    <div id="rightmain" class="right_main_wraper">
+        <div id ="map" style="position:absolute;width:100%;height:100%;z-index:1;"></div>
+    </div>
+</div>
 
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fad6c5fcb014eb0be53048d3f5a5821"></script>
 	<script>
+	
+	
+	    //onclick Wettings------------------------------------------------------------------------------------------------
+	    
+	    function sideonmap_open_click(){
+	        document.getElementById("sideonmap").style = "visibility:hidden";
+	        document.getElementById("leftside").style = "width:20%"
+	    }
+	    
+	    
+	    
+	    //KAKAO MAP Settings----------------------------------------------------------------------------------------------
 	
 		var container = document.getElementById('map');
 		var loc = {{location}}
@@ -80,24 +137,24 @@
             }
             
             
-            // Marker lines settings
-            var linePath = new Array()
+            // // Marker lines settings
+            // var linePath = new Array()
             
-            for(var i = 0;i<loc.length;i++){
-                linePath.push(positions[i].latlng)
-            }
+            // for(var i = 0;i<loc.length;i++){
+            //     linePath.push(positions[i].latlng)
+            // }
             
-            // 지도에 표시할 선을 생성합니다
-            var polyline = new daum.maps.Polyline({
-                path: linePath, // 선을 구성하는 좌표배열 입니다
-                strokeWeight: 5, // 선의 두께 입니다
-                strokeColor: '#FFAE00', // 선의 색깔입니다
-                strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-                strokeStyle: 'solid' // 선의 스타일입니다
-            });
+            // // Setting lines
+            // var polyline = new daum.maps.Polyline({
+            //     path: linePath, // 선을 구성하는 좌표배열 입니다
+            //     strokeWeight: 5, // 선의 두께 입니다
+            //     strokeColor: '#FFAE00', // 선의 색깔입니다
+            //     strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            //     strokeStyle: 'solid' // 선의 스타일입니다
+            // });
             
-            // Show lines on map
-            polyline.setMap(map);  
+            // // Show lines on map
+            // polyline.setMap(map);  
             
             
         }

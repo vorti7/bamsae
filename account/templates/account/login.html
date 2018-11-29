@@ -1,13 +1,25 @@
-{%extends 'base.html'%}
+{%extends 'nonavbase.html'%}
 {% load bootstrap4 %}
-
-{%block content%}
-    <h1>여기는 로그인</h1>
-    <div class="container">
-        <form action="" method='post'>
-            {%csrf_token%}
-            {% bootstrap_form form %}
-            <input type="submit">
-        </form>
-    </div>
+<!--{% load static %}-->
+{%block body_block%}
+    <!--<div id="entire-container" style="position:absolute;width:100%;height:100%;background-image:url('/static/img/night-background.jpeg');background-repeat:no-repeat;background-size:100% 100%;">-->
+    <!--    <div id="top-container" style="position:relative;width:100%;height:25%"></div>-->
+    <!--    <div id="mid-container" style="position:relative;width:100%;height:50%;">-->
+    <!--        <span id="left-container" style="position:relative;width:35%;float:left;height:100%;padding:1rem"></span>-->
+            <!--<span id="login-container" style="position:relative;width:30%;float:left;height:100%;background-color:white;box-shadow: 5px 5px 5px 5px gray;padding:1rem;border-radius: 10px;">-->
+                <img src="{% static 'img/supbird.gif' %}" style="height:40%;width:100%">
+                <div class="container" style="height:60%;width:100%">
+                    <form action="" method='post'>
+                        {%csrf_token%}
+                        {% bootstrap_form form %}
+                        <input type="submit" value="Sign in" style="float:right">
+                    </form>
+                        <a style="float:left" href="{%url 'account:signup'%}">Don't you have any account?</a>
+                        <!--<button style="float:left" onclick="call_signup()">Sign Up</button>-->
+                </div>    
+            <!--</span>-->
+            <!--<span id="right-container" style="position:relative;float:left;width:35%;height:100%;"></span>-->
+    <!--    </div>-->
+    <!--    <div id="bottom-container" style="position:relative;width:100%;height:25%"></div>-->
+    <!--</div>-->
 {%endblock%}

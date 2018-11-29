@@ -14,26 +14,20 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav" style="width:100%">
-          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="#">Features</a>
-          <a class="nav-item nav-link" href="#">Pricing</a>
-          <a class="nav-item nav-link disabled" href="#">Disabled</a>
-        </div>
-      </div>
-      <div class="navbar-nav navbar-light bg-light">
-          <a class="nav-item nav-link" href="#">Hello! <font color="green">{{user.username}}</font></a>
-      </div>
-    </nav>
     <div class="container-fluid">
-      {% block body_block %}
-      {% endblock %}
+        
+        <div id="entire-container" style="position:absolute;width:100%;height:100%;background-image:url('/static/img/nightsky.jpeg');background-repeat:no-repeat;background-size:100% 100%;">
+            <div id="top-container" style="position:relative;width:100%;height:25%"></div>
+            <div id="mid-container" style="position:relative;width:100%;height:50%;">
+                <span id="left-container" style="position:relative;width:35%;float:left;height:100%;padding:1rem"></span>
+                <span id="login-container" style="position:relative;width:30%;float:left;height:100%;background-color:white;box-shadow: 5px 5px 5px 5px gray;padding:1rem;border-radius: 10px;overflow-y:auto">
+                    {% block body_block %}
+                    {% endblock %}
+                </span>
+                <span id="right-container" style="position:relative;float:left;width:35%;height:100%;"></span>
+            </div>
+            <div id="bottom-container" style="position:relative;width:100%;height:25%"></div>
+        </div>
     </div>
 </body>
 </html>

@@ -1,12 +1,15 @@
-{%extends 'base.html'%}
+{%extends 'nonavbase.html'%}
 {% load bootstrap4 %}
 
-{%block content%}
+{%block body_block%}
     <div class="container">
+    <h1>Welcome!</h1>
+    <!--<h3></h3>-->
+    <!--<div class="container" style="overflow-y:scroll">-->
         <form action="" method='post'>
             {%csrf_token%}
             {% bootstrap_form form %}
-            <input type="submit">
+            <input style="float:right" type="submit" value="Sign Up">
         </form>
     </div>
 {%endblock%}
