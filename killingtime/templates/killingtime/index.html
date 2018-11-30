@@ -5,44 +5,50 @@
 <div class = "left_side_right_main_wraper">
     <div data-toggle="collapse" href="#leftside" role="button" aria-expanded="false" aria-controls="leftside" style="position:absolute;top:1rem;left:0.2rem;z-index: 3;"><i class="fas fa-chevron-circle-right" style="font-size: 2rem;"></i></div>
     <nav id="leftside" class="left_side_wraper collapse">
-        <div id="sideonmap" style="position:relative;width:100%;height:100%;z-index:3;background-color: white;float:left;">
-            
-            <ul><!-- open whole list -->
-            <li> Search place
-            <p>
-                <input type="search" id="site-search" name="q"
-                       aria-label="Search through site content" style="width:80%">
-            </p>
-            <p>
-                <button>Search</button>
-            </p>
-            </li>
-            <li> 
-            
-                <p>
-                  <a class="btn btn-primary" data-toggle="collapse" href="#favorite_list" role="button" aria-expanded="false" aria-controls="favorite_list">
-                    Favorite
-                  </a>
-                </p>
-                <div class="collapse" id="favorite_list">
-                  <div>
-                      <p>something01</p>
-                      <p>something02</p>
-                      <p>something03</p>
-                  </div>
+        <div id="sideonmap" style="position:relative;display:inline;width:100%;height:100%;z-index:3;float:left">
+            <span style="position:relative;height:100%;">
+                <div id="Eat" class="tabcontent">
+                    <ul><!-- open whole list -->
+                    <li> Search place
+                    <p>
+                        <input type="search" id="site-search" name="q"
+                               aria-label="Search through site content" style="width:80%">
+                    </p>
+                    <p>
+                        <button>Search</button>
+                    </p>
+                    </li>
+                    <li> 
+                        <p>
+                          <a class="btn btn-primary" data-toggle="collapse" href="#favorite_list" role="button" aria-expanded="false" aria-controls="favorite_list">
+                            Favorite
+                          </a>
+                        </p>
+                        <div class="collapse" id="favorite_list">
+                          <div>
+                              <p>something01</p>
+                              <p>something02</p>
+                              <p>something03</p>
+                          </div>
+                        </div>
+                    
+                    </li><!-- closing list under section two -->
+                    </ul><!-- closing whole list -->
+                    
                 </div>
+                <div id="Play" class="tabcontent" style="display:none"> 
+                </div>
+                <div id="Travel" class="tabcontent" style="display:none">
+                </div>
+            </span>
             
-            </li><!-- closing list under section two -->
-            <li>Title of Section Three
-                 <ul>
-                  <li>Carrot</li>
-                  <li>Celery</li>
-                 </ul>
-            </li><!-- closing list under section three -->
-            </ul><!-- closing whole list -->
-            
-        </div>
-        <!--<div data-toggle="collapse" href="#leftside" role="button" aria-expanded="false" aria-controls="leftside"style="float:right"><i class="fas fa-chevron-circle-left" style="font-size: 2rem;"></i></div>-->
+            <span class="tab" style="position:relative;height:100%;width:20%;float:right">
+              <button class="tablinks" onclick="openTab(event, 'Eat')"><i class="fas fa-utensils"></i></button>
+              <button class="tablinks" onclick="openTab(event, 'Play')"><i class="far fa-futbol"></i></button>
+              <button class="tablinks" onclick="openTab(event, 'Travel')"><i class="fas fa-briefcase"></i></button>
+              <button class="tablinks" data-toggle="collapse" href="#leftside" aria-expanded="false" aria-controls="leftside"><i class="fas fa-chevron-circle-left"></i></button>
+            </span>
+      
     </nav>
     <div id="rightmain" class="right_main_wraper">
         <div id ="map" style="position:absolute;width:100%;height:100%;z-index:1;"></div>
@@ -59,13 +65,33 @@
 	        document.getElementById("sideonmap").style = "visibility:hidden";
 	        document.getElementById("leftside").style = "width:20%"
 	    }
-	    
+	    function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+        
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+        
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+        
+            // Show the current tab, and add an "active" class to the link that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }    
 	    
 	    
 	    //KAKAO MAP Settings----------------------------------------------------------------------------------------------
 	
 		var container = document.getElementById('map');
 		var loc = {{location}}
+		var openedInfowindow = new Array()
 		
 		// Check Mobile Device for geolocation(Web's gps is not perfect.)
 		var isMobile = {
@@ -127,13 +153,51 @@
             for(var i = 0;i<loc.length;i++){
                 positions.push({title:"", latlng:new daum.maps.LatLng(loc[i][0], loc[i][1])})
             }
+            
+    		var infowindowContent = "<div class='card' style='width: 18rem;'>" +
+                                    "   <img class='card-img-top' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQoU-m-9q0WegAKDPXzBC4G33UZqZsjDVbSTZ8BNu61WUQOC1-zQ' alt='Card image cap'>" +
+                                    "   <div class='card-body'>" +
+                                    "   <p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>" +
+                                    "   </div>" +
+                                    "</div>"
+            // var overlayContent = "<div class='card'>" + 
+            //                      "    <div class='info'>" + 
+            //                      "        <div class='title'>" + 
+            //                      "            This is title" + 
+            //                      "        </div>" + 
+            //                      "        <div class='body'>" + 
+            //                      "            <div class='img'>" +
+            //                      "                <img src='http://cfile181.uf.daum.net/image/250649365602043421936D' width='73' height='70'>" +
+            //                      "           </div>" + 
+            //                      "            <div class='desc'>" + 
+            //                      "                <div class='ellipsis'>제주특별자치도 제주시 첨단로 242</div>" + 
+            //                      "                <div class='jibun ellipsis'>(우) 63309 (지번) 영평동 2181</div>" + 
+            //                      "                <div><a href='http://www.kakaocorp.com/main' target='_blank' class='link'>홈페이지</a></div>" + 
+            //                      "            </div>" + 
+            //                      "        </div>" + 
+            //                      "    </div>" +    
+            //                      "</div>";
     		
             for(var i = 0;i<loc.length;i++){
                 var marker = new daum.maps.Marker({
                     map: map, // 마커를 표시할 지도
                     position: positions[i].latlng, // 마커를 표시할 위치
-                    title : positions[i].title, 
+                    // title : positions[i].title,
                 });
+                var infowindow = new daum.maps.InfoWindow({
+                    content : infowindowContent,
+                })
+                infowindow.bool = true
+                // var overlay = new daum.maps.CustomOverlay({
+                //     content: overlayContent,
+                //     map: map,
+                //     position: positions[i].latlng     
+                // });
+                // overlay.setMap(map);
+                daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+                // daum.maps.event.addListener(marker, 'click', makeClickListener(map, overlay))
+                daum.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow))
             }
             
             
@@ -158,6 +222,33 @@
             
             
         }
-
+        // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+        function makeOverListener(map, marker, infowindow) {
+            return function() {
+                infowindow.open(map, marker);
+            };
+        }
+        
+        // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+        function makeOutListener(infowindow) {
+            return function() {
+                if(openedInfowindow.indexOf(infowindow)==-1){
+                    infowindow.close();
+                }
+            };
+        }
+        
+        // show detail info by click!
+        function makeClickListener(map, marker, infowindow) {
+            return function() {
+                if(openedInfowindow.pop(infowindow)){
+                    infowindow.close();
+                }else{
+                    infowindow.open(map, marker);
+                    openedInfowindow.push(infowindow)
+                }
+            };
+        }
+        
 	</script>
 {% endblock %}
