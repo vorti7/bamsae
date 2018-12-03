@@ -1,15 +1,7 @@
-<script>
-    var mapList = new Array()    
-</script>
-{% for aLoc in results %}
-    <script>
-        mapList.push(["{{aLoc.name}}", "{{aLoc.addr}}", "{{aLoc.x}}", "{{aLoc.y}}", "{{aLoc.imgSrc}}"])
-    </script>
-{% endfor %}
 {%extends 'base.html'%}
 {% block body_block %}
 {% load staticfiles %}
-    
+
 <div class = "left_side_right_main_wraper">
     <div data-toggle="collapse" href="#leftside" role="button" aria-expanded="false" aria-controls="leftside" style="position:absolute;top:1rem;left:0.2rem;z-index: 3;"><i class="fas fa-chevron-circle-right" style="font-size: 2rem;"></i></div>
     <nav id="leftside" class="left_side_wraper collapse">
@@ -62,7 +54,16 @@
         <div id ="map" style="position:absolute;width:100%;height:100%;z-index:1;"></div>
     </div>
 </div>
-
+<script>
+    var mapList = new Array()
+    var loc = new Array()
+</script>
+{% for aLoc in results %}
+    <script>
+        mapList.push(["{{aLoc.name}}", "{{aLoc.addr}}", "{{aLoc.imgSrc}}", "{{aLoc.desc}}"])
+        loc.push(["{{aLoc.y}}"*1, "{{aLoc.x}}"*1])
+    </script>
+{% endfor %}
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fad6c5fcb014eb0be53048d3f5a5821"></script>
 	<script>
 	
@@ -98,9 +99,10 @@
 	    //KAKAO MAP Settings----------------------------------------------------------------------------------------------
 	
 		var container = document.getElementById('map');
-		var loc = {{location}}
+// 		var loc = {{location}}
 		var openedInfowindow = new Array()
-		
+// 		console.log(loc)
+// 		console.log(mapList)
 		// Check Mobile Device for geolocation(Web's gps is not perfect.)
 		var isMobile = {
             Android: function() {
@@ -130,7 +132,7 @@
             navigator.geolocation.getCurrentPosition(function(position) {
                 curloc[0] = position.coords.latitude
                 curloc[1] = position.coords.longitude
-                mapSetting(loc, curloc)
+                mapSetting(loc, mapList, curloc)
             });
         } else {
             /* geolocation X */
@@ -142,11 +144,11 @@
             }
             curloc[0] /= loc.length
             curloc[1] /= loc.length
-            mapSetting(loc, curloc)
+            mapSetting(loc, mapList, curloc)
         }
         
         
-        function mapSetting(loc, curloc){
+        function mapSetting(loc, mapList, curloc){
             
             // Map setting
     		var options = {
@@ -158,16 +160,21 @@
             
             // Marker postions setting
             var positions = new Array()
+            var infoArray = new Array()
             for(var i = 0;i<loc.length;i++){
                 positions.push({title:"", latlng:new daum.maps.LatLng(loc[i][0], loc[i][1])})
-            }
-            
-    		var infowindowContent = `<div class='card aPage' style='width:18rem;height:30rem'>` +
-                                    "   <img class='card-img-top' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQoU-m-9q0WegAKDPXzBC4G33UZqZsjDVbSTZ8BNu61WUQOC1-zQ' alt='Card image cap' style='position:relative;width:90%;margin:auto'>" +
+                var infowindowContent = `<div class='card aPage' style='width:18rem;height:30rem;padding-top:1rem'>` +
+                                    "   <img class='card-img-top' src='"+ mapList[i][2] +"' alt='Card image cap' style='position:relative;width:90%;height:35%;margin:auto'>" +
                                     "   <div class='card-body'>" +
-                                    "   <p class='card-text'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>" +
+                                    "   <p class='card-text' style='font-size:150%'>"+ mapList[i][0] +"</p>" +
+                                    "   <p class='card-text' style='font-size:90%'>"+ mapList[i][1] +"</p>" +
+                                    "   <p class='card-text'>"+ mapList[i][3] +"</p>" +
                                     "   </div>" +
                                     "</div>"
+                infoArray.push(infowindowContent)
+            }
+            
+    		
             // var overlayContent = "<div class='card'>" + 
             //                      "    <div class='info'>" + 
             //                      "        <div class='title'>" + 
@@ -193,7 +200,7 @@
                     // title : positions[i].title,
                 });
                 var infowindow = new daum.maps.InfoWindow({
-                    content : infowindowContent,
+                    content : infoArray[i],
                 })
                 infowindow.bool = true
                 // var overlay = new daum.maps.CustomOverlay({
