@@ -1,0 +1,97 @@
+{%extends 'base.html'%}
+{% load bootstrap4 %}
+
+{%block body_block%}
+      <div class="page-header"> 
+      <a href="{%url 'post:update' post.pk%}" class="btn btn-primary"style="float:right">글 수정</a>
+      <a href="{%url 'post:delete' post.pk%}" class="btn btn-primary"style="float:right">글 삭제</a>
+      <h1 class="display-6">{{post.title}}</h1>
+      <p class="lead">{{post.created_at|date:"Y-m-d"}}</p>
+      <hr class="my-6">
+      <p>{{post.content}}</p>
+      <!--<a class="btn btn-primary btn-lg" href="#" role="button">기능없는버튼</a>-->
+      <!--<p>{{post.like.all}}</p>-->
+      {%if user in post.like.all %}
+        <button id="like" class="btn btn-primary" name="{{post.id}}"> <i id="heart" class="fas fa-heart"><span id="like_count" class="badge badge-light">{{post.like.count}}</span> </i> </button>
+      {%else%}
+        <button id="like" class="btn btn-primary" name="{{post.id}}"> <i id="heart" class="far fa-heart"><span id="like_count" class="badge badge-light">{{post.like.count}}</span></i> </button>
+      {%endif%}
+    </div>
+    
+    <form action="{% url 'post:comment_create' post.id %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-primary">
+    </form>
+    
+    {% for comment in post.comment_set.all %}
+        <div class="card">
+          <div class="card-body">
+            {{comment.user.username}} : {{comment.content}}
+            {%if user in comment.like.all %}
+            <button id="comment_like" class="btn btn-primary comment_like" name="{{comment.id}}"> <i id="heart" class="fas fa-heart heart"><span id="comment_like_count" class="badge badge-light comment_like_count">{{comment.like.count}}</span> </i> </button>
+            {%else%}
+            <button id="comment_like" class="btn btn-primary comment_like" name="{{comment.id}}"> <i id="heart" class="far fa-heart heart"><span id="comment_like_count" class="badge badge-light comment_like_count">{{comment.like.count}}</span></i> </button>
+            {%endif%}
+          </div>
+        </div>
+    {% endfor %}
+    
+    <script type="text/javascript">
+      $('#like').click(function(){
+        var pk = $(this).attr('name')
+        $.ajax({
+          type: "POST",
+          url: "{% url 'post:like' post.id %}",
+          data: {'pk':pk, 'csrfmiddlewaretoken':'{{csrf_token}}'},
+          dataType: 'json',
+          
+          success: function(data){
+            $('#like_count').text(data.likes_count)
+            
+            if(   $('#heart').hasClass('fas')    ){
+              $('#heart').removeClass('fas').addClass('far')
+            }
+            else{
+              $('#heart').removeClass('far').addClass('fas')
+            }
+          },
+          error: function(){
+            
+          }
+          
+        })
+      })
+      
+    </script>
+    
+    <script type="text/javascript">
+        $('.comment_like').click(function(){
+          var btn = $(this)
+          var pk = btn.attr('name')
+          $.ajax({
+            type: "POST",
+            url: "/post/" + pk + "/comment_like/",
+            data: {'pk':pk, 'csrfmiddlewaretoken':'{{csrf_token}}'},
+            dataType: 'json',
+            
+            success: function(data){
+              btn.find('.comment_like_count').first().text(data.likes_count)
+              
+              if(   btn.find('.heart').first().hasClass('fas')    ){
+                btn.find('.heart').first().removeClass('fas').addClass('far')
+              }
+              else{
+                btn.find('.heart').first().removeClass('far').addClass('fas')
+              }
+            },
+            error: function(){
+              
+            }
+            
+          })
+        })
+        
+      </script>
+    
+{%endblock%}

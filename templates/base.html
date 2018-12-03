@@ -14,24 +14,26 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom:solid 1px;border-color: #EEEEEE;-webkit-box-shadow: 0px 1px 16px 0px rgba(0,0,0,0.3);box-shadow: 0px 1px 16px 0px rgba(0,0,0,0.3);">
+      <a class="navbar-brand" href=""><img src="{% static 'img/back_owl.png' %}" width="130px" height="70px" style="margin-top:-5px;margin-bottom:-5px;margin-left:15px;margin-right:30px" alt=""></a>
+      <!--<a class="navbar-brand" href="#" style="background-image:url('/static/img/owllogo.png');"></a>-->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav" style="width:100%">
-          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="#">Features</a>
-          <a class="nav-item nav-link" href="#">Pricing</a>
-          <a class="nav-item nav-link disabled" href="#">Disabled</a>
+          <a class="nav-item nav-link active" href="#" style="font-size:130%;margin-right:10px"> HOME </a>
+          <a class="nav-item nav-link" href="#" style="font-size:130%;margin-right:10px">Features</a>
+          <a class="nav-item nav-link" href="#" style="font-size:130%;margin-right:10px">Pricing</a>
+          <a class="nav-item nav-link" href="#" style="font-size:130%">Disabled</a>
         </div>
       </div>
       <div class="navbar-nav navbar-light bg-light">
-          <a class="nav-item nav-link" href="#">Hello! <font color="green">{{user.username}}</font></a>
+          <a class="nav-item nav-link" href="#" style="font-size:100%">Hello! <font color="green">{{user.username}}</font></a>
       </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-top: 25px">
+      
       {% block body_block %}
       {% endblock %}
     </div>

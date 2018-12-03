@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_pagination %}
+
+{% block body_block %}
+
+<!--Start search section-->  
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class='col-md-12'>
+        <div class="input-group mb-3" style=float:center;>
+          <div class="input-group-prepend" style="margin:auto">
+            <form action="{% url 'eats:index' %}">
+              <div style='float:left;dispaly:inline;margin-right:1rem'>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons" style='float:left;dispaly:inline'>
+                  <label class="btn btn-secondary active">
+                    <input type="radio" name="status" value="all" autocomplete="off">전체
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="status" value="open" autocomplete="off">영업중
+                  </label>
+                </div>
+                <input id="search" type="text" class="form-control" name='search' style="width:300px;float:right;dispaly:inline" placeholder="음식명 또는 지역명으로 검색" style='float:left;dispaly:inline'>
+              </div>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style='float:right;dispaly:inline'>검색</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End search section-->
+    
+<!-- Start blog section -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        
+        <div class="col-md-10" style="margin:auto">
+          <div class="row">
+            <!-- Start single blog post -->
+            {% for eat in results %}
+                {% include 'eats/_eat.html' %}
+            {% endfor %}
+            <!-- End single blog post -->
+          </div>
+          <!--Start Blog pagination -->
+          <div style="display: flex;justify-content: center;">
+            {% bootstrap_paginate eats range=5 show_first_last=True %}
+          </div>
+          <!-- End blog pagination -->
+        </div>
+      
+      </div>
+    
+    </div>
+  </div>
+</div>
+<!-- End blog section -->
+
+{% endblock %}

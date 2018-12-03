@@ -1,0 +1,58 @@
+{% load staticfiles %}
+
+<!--<div class="col-md-4 col-sm-6">-->
+<!--  <article class="single-from-blog">-->
+<!--    <figure>-->
+<!--      {% if eat.imgSrc %}-->
+<!--      <a href="{% url 'eats:detail' pk=eat.pk %}"><img alt="img" src={{eat.imgSrc}}></a>-->
+<!--      {% else %}-->
+<!--      <a href="{% url 'eats:detail' pk=eat.pk %}"><img alt="img" src="{% static 'imG/img_not_found.jpg' %}"></a>-->
+<!--      {% endif %}-->
+<!--    </figure>-->
+<!--    <div class="blog-title">-->
+<!--      <div style="height:50px;">-->
+<!--          <div style='float:left;'>-->
+<!--              <span style="font-size:17px;"><strong><a href="{% url 'eats:detail' pk=eat.pk %}">{{eat.name|truncatechars:14}}</a></strong></span>-->
+<!--              <br><span>카페</span>-->
+<!--          </div>-->
+<!--          <h4>{{eat.time.1}}</h4>-->
+<!--      {% if eat.is_open %}-->
+<!--        <button style='float:right' type="button" class="btn btn-success">Open</button>-->
+<!--      {%else%}-->
+<!--        <button style='float:right' type="button" class="btn btn-danger">Close</button>-->
+<!--      {%endif%}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="blog-footer">-->
+<!--      <a href="#"><span class="fa fa-comment"></span>18 Comments</a>-->
+<!--      <a href="#"><span class="fa fa-thumbs-o-up"></span>35 Likes</a>-->
+<!--    </div>-->
+<!--  </article>-->
+<!--</div>-->
+
+
+<div class="card" style="width:30%;margin:auto;margin-bottom:30px">
+  {% if eat.imgSrc %}
+    <a href="{% url 'eats:detail' pk=eat.pk %}"><img class= "card-img-top" alt="img" src={{eat.imgSrc}} width="320px" height="250px"></a>
+  {% else %}
+    <a href="{% url 'eats:detail' pk=eat.pk %}"><img class= "card-img-top" alt="img" src="{% static 'img/img_not_found.jpg' %}" width="320px" height="250px"></a>
+  {% endif %}
+  <div class="card-body">
+    <!--<h4><a href="{% url 'eats:detail' pk=eat.pk %}" style="color:black;text-decoration:none">{{eat.name|truncatechars:14}}</a></h4>-->
+    <div style="height:70px">
+      <div style='float:left;'>
+        <span style="font-weight:bold;font-size:14"><a href="{% url 'eats:detail' pk=eat.pk %}" style="color:black;text-decoration:none">{{eat.name|truncatechars:10}}</a></span>
+        <br><span>카페</span>
+      </div>
+      {% if eat.is_open %}
+        <button style='float:right' type="button" class="btn btn-outline-success">Open</button>
+      {%else%}
+        <button style='float:right' type="button" class="btn btn-outline-danger">Close</button>
+      {%endif%}
+    </div>
+    <div>
+      <a href="#">18 Comments</a>
+      <a href="#">35 Likes</a>
+    </div>
+  </div>
+</div>

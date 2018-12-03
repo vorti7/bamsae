@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body_block %}
+
+<!-- Start blog section -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="blog-area">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12">
+                        <div class="blog-left blog-details">
+                            <!-- Start single blog post -->
+                            <article class="single-from-blog">                    
+                                <div class="blog-title">
+                                    <h2><font size='6'>{{eat.name}}</font></h2>
+                                    <h5>음식종류</h5>
+                                </div>
+                                <figure>
+                                    <img alt="img" src={{eat.imgSrc}}>
+                                </figure>
+                                <div class="blog-details-content">
+                                    <table class="table">
+                                        <tr >
+                                            <th width='100px' >주소</th>
+                                            <td>{{eat.addr}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th width='100px' >전화번호</th>
+                                            <td>{{eat.phone}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th width='100px'>주차</th>
+                                            <td>
+                                            
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th width='100px'>영업시간</th>
+                                            <td>
+                                                {%for time in eat.time.all%}
+                                                {% if time.day != '공휴일' %}
+                                                    <p style="margin-bottom:0px">{{time.day}} : {{time.open|time:"H:i"}} ~ {{time.close|time:"H:i"}}</p>
+                                                {%endif%}
+                                                {%endfor%}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>                  
+                            </article>
+                            <div class="blog-comment">
+                                <h2>사용자 리뷰들</h2>
+                                <form class="comment-form" action="">
+                                    <div class="form-group">
+                                        <textarea class="form-control"></textarea>
+                                    </div>
+                                    <button class="button button-default" data-text="Comment" type="submit"><span>Comment</span></button>
+                                </form>
+                            </div>
+                            <!-- End single blog post -->                  
+                        </div>
+                    </div>
+                    <!--<div class="col-lg-4 col-md-4 col-sm-12">-->
+                    <!--    <aside class="blog-right">-->
+                            
+                          <!-- Start Sidebar Single widget -->
+                    <!--      <div class="single-widget">-->
+                    <!--        <h2>지도 자리</h2>-->
+                    <!--        <form class="blog-search">-->
+                              <!--<input type="text">-->
+                    <!--          <button class="button button-default" data-text="Search" type="submit"><span>Search</span></button>-->
+                    <!--        </form>-->
+                    <!--      </div>-->
+                          <!-- End Sidebar Single widget -->
+                          
+                          <!-- Start Sidebar Single widget -->
+                    <!--      <div class="single-widget">-->
+                    <!--        <h2>Follow us on</h2>-->
+                    <!--        <div class="follow-us">-->
+                    <!--          <a class="facebook" href="#"><span class="fa fa-facebook"></span></a>-->
+                    <!--          <a class="twitter" href="#"><span class="fa fa-twitter"></span></a>-->
+                    <!--          <a class="google-plus" href="#"><span class="fa fa-google-plus"></span></a>-->
+                    <!--          <a class="youtube" href="#"><span class="fa fa-youtube"></span></a>-->
+                    <!--          <a class="linkedin" href="#"><span class="fa fa-linkedin"></span></a>-->
+                    <!--          <a class="dribbble" href="#"><span class="fa fa-dribbble"></span></a>-->
+                    <!--        </div>-->
+                    <!--      </div>-->
+                          <!-- End Sidebar Single widget -->
+                          
+                          <!-- Start Sidebar Single widget -->
+                    <!--      <div class="single-widget">-->
+                    <!--        <h2>Popular post</h2>-->
+                    <!--        <div class="popular-post-widget">-->
+                    <!--          <div class="media">-->
+                    <!--              <div class="media-left">-->
+                    <!--                <a href="blog-single.html">-->
+                    <!--                  <img class="media-object" src="{% static 'images/popular-post-img.jpg' %}" alt="img">-->
+                    <!--                </a>-->
+                    <!--              </div>-->
+                    <!--              <div class="media-body">-->
+                    <!--                <h4 class="media-heading"><a href="blog-single.html">A lonely flower</a></h4>-->
+                    <!--                <p>Sed ut perspiciatis omnis natus error sit voluptatem accusantium done.</p>-->
+                    <!--              </div>-->
+                    <!--          </div>-->
+                    <!--          <div class="media">-->
+                    <!--            <div class="media-left">-->
+                    <!--              <a href="blog-single.html">-->
+                    <!--                <img class="media-object" src="{% static 'images/popular-post-img.jpg' %}" alt="img">-->
+                    <!--              </a>-->
+                    <!--            </div>-->
+                    <!--            <div class="media-body">-->
+                    <!--              <h4 class="media-heading"><a href="blog-single.html">A lonely flower</a></h4>-->
+                    <!--              <p>Sed ut perspiciatis omnis natus error sit voluptatem accusantium done.</p>-->
+                    <!--            </div>-->
+                    <!--          </div>-->
+                    <!--          <div class="media">-->
+                    <!--            <div class="media-left">-->
+                    <!--              <a href="blog-single.html">-->
+                    <!--                <img class="media-object" src="{% static 'images/popular-post-img.jpg' %}" alt="img">-->
+                    <!--              </a>-->
+                    <!--            </div>-->
+                    <!--            <div class="media-body">-->
+                    <!--              <h4 class="media-heading"><a href="blog-single.html">A lonely flower</a></h4>-->
+                    <!--              <p>Sed ut perspiciatis omnis natus error sit voluptatem accusantium done.</p>-->
+                    <!--            </div>-->
+                    <!--          </div>-->
+                    <!--        </div>-->
+                    <!--      </div>-->
+                          <!-- End Sidebar Single widget -->
+                          <!-- Start Sidebar Single widget -->
+                    <!--      <div class="single-widget">-->
+                    <!--        <h2>Instagram feed</h2>-->
+                    <!--        <div class="instagram-feed">-->
+                    <!--          <div class="single-instagram-feed">-->
+                    <!--            <img src="{% static 'images/instagram-feed-img.jpg' %}" alt="img">-->
+                    <!--          </div>-->
+                    <!--          <div class="single-instagram-feed">-->
+                    <!--            <img src="{% static 'images/instagram-feed-img.jpg' %}" alt="img">-->
+                    <!--          </div>-->
+                    <!--          <div class="single-instagram-feed">-->
+                    <!--            <img src="{% static 'images/instagram-feed-img.jpg' %}" alt="img">-->
+                    <!--          </div>-->
+                    <!--        </div>-->
+                    <!--      </div>-->
+                          <!-- End Sidebar Single widget -->
+                          <!-- Start Sidebar Single widget -->
+                    <!--      <div class="single-widget">-->
+                    <!--        <h2>Subscribe to newslater</h2>-->
+                    <!--        <form class="blog-search">-->
+                    <!--          <input type="text">-->
+                    <!--          <button class="button button-default" data-text="Subscribe" type="submit"><span>Subscribe</span></button>-->
+                    <!--        </form>-->
+                    <!--      </div>-->
+                          <!-- End Sidebar Single widget -->
+                    <!--    </aside>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <!-- End blog section -->
+
+
+
+
+
+
+{% endblock %}

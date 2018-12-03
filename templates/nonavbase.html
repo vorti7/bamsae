@@ -15,8 +15,11 @@
 </head>
 <body>
     <div class="container-fluid">
-        
-        <div id="entire-container" style="position:absolute;width:100%;height:100%;background-image:url('/static/img/nightsky.jpeg');background-repeat:no-repeat;background-size:100% 100%;">
+        <!--background-image:url('/static/img/nightsky.jpeg');-->
+        <div id="entire-container" style="position:absolute;width:100%;height:100%;background-repeat:no-repeat;background-size:100% 100%;">
+            <video autoplay muted loop id="videoBack" style="position: fixed;right: 0;bottom: 0;min-width: 100%; min-height: 100%;">
+                <source src="{% static 'video/cityview2.mp4' %}" type="video/mp4">
+            </video>
             <div id="top-container" style="position:relative;width:100%;height:25%"></div>
             <div id="mid-container" style="position:relative;width:100%;height:50%;">
                 <span id="left-container" style="position:relative;width:35%;float:left;height:100%;padding:1rem"></span>

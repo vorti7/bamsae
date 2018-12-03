@@ -22,5 +22,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('map/', include('map.urls')),
     path('killingtime/', include('killingtime.urls')),
+    path('post/', include('post.urls')),
     path('', views.HomePage.as_view(),name='home'),
+    path('eats/', include('eats.urls')),
 ]

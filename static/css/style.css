@@ -22,6 +22,9 @@ html, body {
   float:left;
   z-index:1;
 }
+
+
+
 .aPage {
     /*background-image:url('/static/img/page.png');*/
     /*background-repeat: no-repeat;*/

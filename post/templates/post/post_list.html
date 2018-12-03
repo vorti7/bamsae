@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load bootstrap_pagination %}
+{% block body_block %}
+
+     <div id="table">
+        {%if anon == "true" %}
+             <a href="{%url 'post:create'%}?category=1" class="btn btn-primary">익명글작성</a>
+        {%else%}
+             <a href="{%url 'post:create'%}?category=2" class="btn btn-primary">글작성</a>
+        {%endif%}
+        
+        <div class="row" style="width:100%;border: 1px solid black" >
+            <span class="cell col1"style="width:10%;border-right: 1px solid black;text-align:center"> 번호 </span>
+            <span class="cell col3"style="width:50%;border-right: 1px solid black;text-align:center"> 제목 </span>
+            <span class="cell col4"style="width:15%;border-right: 1px solid black;text-align:center"> 글쓴이 </span>
+            <span class="cell col5"style="width:10%;border-right: 1px solid black;text-align:center"> 날짜 </span>
+            <span class="cell col6"style="width:10%;border-right: 1px solid black;text-align:center"> 조회 </span>
+            <span class="cell col7"style="width:5%;text-align:center"> 추천 </span>
+        </div>
+        {% for post in post %}
+        <div class="row" style="width:100%;border-top:10px;border: 1px solid black" >
+            <span class="cell col1"style="width:10%;border-right: 1px solid black;text-align:center">{{post.id}} </span>
+            <span class="cell col3" style="width:50%;border-right: 1px solid black;text-align:center"><a href="{%url 'post:detail' post.pk%}" > {{post.title}} </a></span>
+            {% if post.category == '1' %}
+            <span class="cell col4"style="width:15%;border-right: 1px solid black;text-align:center"> 익 명 </span>
+            {%else%}
+            <span class="cell col4"style="width:15%;border-right: 1px solid black;text-align:center"> {{post.user}} </span>
+            {%endif%}
+            <span class="cell col5"style="width:10%;border-right: 1px solid black;text-align:center">{{post.created_at|date:"Y-m-d"}} </span>
+            <span class="cell col6"style="width:10%;border-right: 1px solid black;text-align:center">  </span>
+            <span class="cell col7"style="width:5%;text-align:center"> {{post.like.count}} </span>
+        </div>
+        {%endfor%}
+        <form>
+            검색: <input type="text" name="q"/>
+            <input type="submit">
+        </form>
+    </div>
+    </script>
+  {% bootstrap_paginate post range=5 show_first_last=True %}
+{% endblock %}
