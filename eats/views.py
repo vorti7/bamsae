@@ -4,6 +4,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from .models import Eat, Hour
 from datetime import timezone, timedelta, datetime
+import math
 
 
 # Create your views here.
@@ -56,11 +57,7 @@ class EatDetail(DetailView):
     template_name = 'eats/detail.html'
     context_object_name = 'eat'
     
-# def map(request):
-#     res_list = Eat.objects.all()
-#     res_list.
-#     location = [[37.5018216, 127.0355291],[37.50329,127.0414513],[37.5018498,127.0366247],[37.5089909,127.0381735],[37.5019224,127.0372503]]
-#     return render(request,'eats/map.html', {'location':location})
+    
     
 class MapList(ListView):
     model = Eat
@@ -104,3 +101,18 @@ class MapList(ListView):
         
         
         return context
+        
+def map(request):
+    location = [[37.5018216, 127.0355291],[37.50329,127.0414513],[37.5018498,127.0366247],[37.5089909,127.0381735],[37.5019224,127.0372503]]
+    return render(request,'eats/map.html', {'location':location})
+    
+
+def getposition(request):
+    # user = request.user
+    ajaxPosition = request.POST.get('ajaxPosition', None)
+    position = ajaxPosition.split('&')
+    # 필터수정
+    # positions = Eat.objects.all().filter(math.sqrt((self.x-float(position[0]))**2+(self.y-float(position[1]))**2)<int(position[2]))
+
+    data = {'positions' : positions}
+    return HttpResponse(json.dumps(data), content_type="application/json")

@@ -16,9 +16,10 @@
                                     <h2><font size='6'>{{eat.name}}</font></h2>
                                     <h5>음식종류</h5>
                                 </div>
-                                <figure>
-                                    <img alt="img" src={{eat.imgSrc}}>
-                                </figure>
+                                <div style="position:relative;display:inline;width:100%;height:300px">
+                                    <img style="float:left;width:50%;height:250px" alt="img" src={{eat.imgSrc}}>
+                                    <div id ="map" style="float:left;width:50%;height:250px;background-color:black"></div>
+                                </div>
                                 <div class="blog-details-content">
                                     <table class="table">
                                         <tr >
@@ -163,7 +164,32 @@
 
 
 
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8fad6c5fcb014eb0be53048d3f5a5821"></script>
+	<script>
+	    //KAKAO MAP Settings----------------------------------------------------------------------------------------------
+	
+		var container = document.getElementById('map');
+		
+	    curloc = [{{eat.y}}, {{eat.x}}]
+	    console.log(curloc)
+	    navigator.geolocation.getCurrentPosition(function(position) {
+                curloc[0] = position.coords.latitude
+                curloc[1] = position.coords.longitude
+        });
+        var options = {
+    			center: new daum.maps.LatLng(curloc[0], curloc[1]),
+    			level: 3
+    	};
+        var map = new daum.maps.Map(container, options);
+        
+        var marker = new daum.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: new daum.maps.LatLng(curloc[0], curloc[1]), // 마커를 표시할 위치
+                // title : positions[i].title,
+        });
+            
+        
+	</script>
 
 
 {% endblock %}

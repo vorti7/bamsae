@@ -31,10 +31,12 @@
             <span class="cell col7"style="width:5%;text-align:center"> {{post.like.count}} </span>
         </div>
         {%endfor%}
-        <form>
-            검색: <input type="text" name="q"/>
-            <input type="submit">
-        </form>
+        <form action="{%url 'post:list'%}">
+                <input type="hidden" name="anon" value="{{anon}}">
+                검색: <input type="text" name="q"/>
+                <input type="submit">
+            </form>
+        
     </div>
     </script>
   {% bootstrap_paginate post range=5 show_first_last=True %}

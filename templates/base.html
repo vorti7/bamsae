@@ -2,6 +2,7 @@
 {% load staticfiles %}
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Gamja+Flower|Nanum+Gothic" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +11,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <title>This is basePage</title>
+    <title>밤   새</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"></script>
+   
 </head>
 <body>
+    
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom:solid 1px;border-color: #EEEEEE;-webkit-box-shadow: 0px 1px 16px 0px rgba(0,0,0,0.3);box-shadow: 0px 1px 16px 0px rgba(0,0,0,0.3);">
       <a class="navbar-brand" href=""><img src="{% static 'img/back_owl.png' %}" width="130px" height="70px" style="margin-top:-5px;margin-bottom:-5px;margin-left:15px;margin-right:30px" alt=""></a>
       <!--<a class="navbar-brand" href="#" style="background-image:url('/static/img/owllogo.png');"></a>-->
@@ -22,14 +29,34 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav" style="width:100%">
-          <a class="nav-item nav-link active" href="#" style="font-size:130%;margin-right:10px"> HOME </a>
-          <a class="nav-item nav-link" href="#" style="font-size:130%;margin-right:10px">Features</a>
-          <a class="nav-item nav-link" href="#" style="font-size:130%;margin-right:10px">Pricing</a>
-          <a class="nav-item nav-link" href="#" style="font-size:130%">Disabled</a>
+          <a class="nav-item nav-link active" href="{%url 'eats:index'%}" style="font-size:130%;margin-right:10px">먹  기</a>
+          <a class="nav-item nav-link" href="#" style="font-size:130%;margin-right:10px">놀  기</a>
+          <a class="nav-item nav-link" href="#" style="font-size:130%;margin-right:10px">떠나기</a>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{%url 'post:list'%}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size:130%">
+            수다 떨기
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{%url 'post:list'%}?anon=false">당당한 수다</a>
+            <a class="dropdown-item" href="{%url 'post:list'%}?anon=true">비밀스러운 수다</a>
+          </div>
+        </li>
+          <!--<a class="nav-item nav-link" href="{%url 'post:list'%}" style="font-size:130%">수다떨기</a>-->
         </div>
       </div>
       <div class="navbar-nav navbar-light bg-light">
-          <a class="nav-item nav-link" href="#" style="font-size:100%">Hello! <font color="green">{{user.username}}</font></a>
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            밤이 되었습니다. <font color="green">{{user.username}}</font>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{%url 'accounts:logout'%}">자러 가기</a>
+          </div>
+        </li>
+        {% else %}
+        <a class="nav-item nav-link" href="{%url 'accounts:login'%}" style="font-size:100%"><font color="green">Need to Login</font></a>
+        {% endif %}
       </div>
     </nav>
     <div class="container-fluid" style="padding-top: 25px">

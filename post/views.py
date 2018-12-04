@@ -16,7 +16,6 @@ class PostList(ListView):
     context_object_name = 'post'
     template_name = 'post/post_list.html'
     ordering=['-id']
-
     # def get_context_data(self, **kwargs):
     #     q = self.request.GET.get('q', '') 
     #     context = super().get_context_data(**kwargs)
@@ -25,8 +24,10 @@ class PostList(ListView):
     #     return context
         
     def get_queryset(self):
+        
         q = self.request.GET.get('q', False) 
         anon = self.request.GET.get('anon', 'false')
+        print(anon)
         if anon == 'true':
             category = '1'
         else:

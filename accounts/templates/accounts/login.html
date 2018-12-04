@@ -1,5 +1,7 @@
 {%extends 'nonavbase.html'%}
 {% load bootstrap4 %}
+{% load socialaccount %}
+
 <!--{% load static %}-->
 {%block body_block%}
     <!--<div id="entire-container" style="position:absolute;width:100%;height:100%;background-image:url('/static/img/night-background.jpeg');background-repeat:no-repeat;background-size:100% 100%;">-->
@@ -7,16 +9,23 @@
     <!--    <div id="mid-container" style="position:relative;width:100%;height:50%;">-->
     <!--        <span id="left-container" style="position:relative;width:35%;float:left;height:100%;padding:1rem"></span>-->
             <!--<span id="login-container" style="position:relative;width:30%;float:left;height:100%;background-color:white;box-shadow: 5px 5px 5px 5px gray;padding:1rem;border-radius: 10px;">-->
-                <img src="{% static 'img/supbird.gif' %}" style="height:40%;width:100%">
-                <div class="container" style="height:60%;width:100%">
+                <img src="{% static 'img/supbird.gif' %}" style="height:30%;width:80%;margin-left:10%;margin-right:10%;">
+                <div class="container" style="height:55%;width:100%">
                     <form action="" method='post'>
                         {%csrf_token%}
                         {% bootstrap_form form %}
-                        <input type="submit" value="Sign in" style="float:right">
+                        <input type="submit" value="로그인" style="float:right">
+                        
                     </form>
-                        <a style="float:left" href="{%url 'account:signup'%}">Don't you have any account?</a>
+                        <!--<a style="float:left" href="{%url 'accounts:signup'%}">Don't you have any account?</a>-->
                         <!--<button style="float:left" onclick="call_signup()">Sign Up</button>-->
-                </div>    
+                </div>
+                <div class="container" style="height:15%;width:100%">
+                    <a style="display:inline;float:left" href="{%url 'accounts:signup' %}">회원가입</a>
+                    <a style="display:inline;float:right;background-color:#ffdc00;" class="btn" href="{% provider_login_url 'kakao' %}">
+                        <i class="fab fa-kakao"><font color="black"><i class="fas fa-comment"></i>  카카오로 로그인</font></i>
+                    </a>
+                </div>
             <!--</span>-->
             <!--<span id="right-container" style="position:relative;float:left;width:35%;height:100%;"></span>-->
     <!--    </div>-->

@@ -1,7 +1,12 @@
+body {
+    font-family: Nanum Gothic !important;
+}
+
 html, body {
           position: absolute;
           width: 100%;
           height: 100%;
+          
 }
 .left_side_right_main_wraper {
       position: absolute;
